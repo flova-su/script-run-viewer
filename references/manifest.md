@@ -1,0 +1,11 @@
+# Manifest reference
+
+The template uses Python 3.9+ on macOS or Linux. Use `python3 viewer.py --port 8790` from the generated directory. A different port can be passed explicitly.
+
+The required keys in `viewer.json` are `title`, `command`, and `code_files`. The demo shows a working manifest. The optional keys are `description`, `cwd` (default `.`), `timeout_seconds` (default 120, maximum 3600), and `fields`. Resolve `cwd` from the manifest's directory, and resolve relative command and code paths from that working directory.
+
+- Each command element is a literal string, `{"field": "field_id"}`, `{"output_dir": true}`, or `{"flag": "--flag-name", "field": "boolean_id"}`. The first token is a literal executable. Use an explicit interpreter and script path, such as `["python3", "./fit.py", "--input", {"field":"data"}]`. Boolean flags are appended only when selected. Arguments are passed directly as a list, with shell expansion disabled.
+- Each field has an `id`, a `label`, and a `type`. Types are `text`, `integer`, `number`, `select`, `boolean`, and `file`. Text, numeric, selection and boolean fields require a `default`. Numeric fields accept optional `min` and `max`. Select fields require an array of string `options`. File fields can have an optional `accept` suffix list such as `[".csv", ".tsv"]`, plus `sample`, a path relative to the manifest directory whose contents can be loaded in the demo. Filenames and inputs are copied per run. Uploads have a 4 MiB per-file cap.
+- `code_files` is a list of selected files to hash, relative to `cwd`. Include the entrypoint and any adapter or dependency lockfiles that should block replay when they change.
+- The command receives the new run's output directory via `{"output_dir": true}` or the `SCRIPT_RUN_OUTPUT_DIR` environment variable. Keep any expected downstream work inside the same foreground process. Downloads expose regular files inside that output directory.
+- History lives under `.script-viewer/runs/`. Replay copies the saved input bytes and parameters to a fresh run. Replay is blocked if the manifest, a tracked source file, or the resolved executable path has changed. System libraries, interpreter packages, external data sources, and remote services are outside the recorded snapshot.

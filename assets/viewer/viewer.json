@@ -1,0 +1,16 @@
+{
+  "title": "实验数据检查",
+  "description": "检查一组读数是否超出阈值，并下载能追溯到原始行的报告。",
+  "timeout_seconds": 30,
+  "command": [
+    "python3", "./demo.py", "--input", {"field": "data"},
+    "--threshold", {"field": "threshold"}, "--output", {"output_dir": true},
+    {"flag": "--verbose", "field": "verbose"}
+  ],
+  "code_files": ["demo.py"],
+  "fields": [
+    {"id": "data", "label": "读数 CSV", "type": "file", "accept": [".csv"], "sample": "sample.csv"},
+    {"id": "threshold", "label": "读数上限", "type": "number", "default": 25, "min": 0, "max": 1000},
+    {"id": "verbose", "label": "记录每条读数", "type": "boolean", "default": true}
+  ]
+}

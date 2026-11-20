@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Script Run Viewer</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand"><span aria-hidden="true">▣</span> Script Run Viewer</div>
+      <span class="local">本机运行</span>
+    </header>
+
+    <header class="intro">
+      <h1 id="title">脚本运行</h1>
+      <p id="description"></p>
+    </header>
+    <p id="error" role="alert" class="error" hidden></p>
+
+    <div class="workspace">
+      <div class="column">
+        <section class="panel">
+          <h2>运行参数</h2>
+          <form id="form">
+            <div id="fields" class="fields"></div>
+            <button id="start" class="primary" type="submit" disabled>运行脚本</button>
+          </form>
+        </section>
+        <section class="panel history-panel">
+          <h2>运行历史</h2>
+          <p id="history-empty" class="hint">运行完成后可在这里查看记录。</p>
+          <ul id="history" class="history"></ul>
+        </section>
+      </div>
+
+      <section class="panel detail-panel">
+        <header class="detail-header">
+          <div>
+            <h2>运行详情</h2>
+            <p id="run-time" class="hint"></p>
+          </div>
+          <span id="status" class="status" role="status">等待运行</span>
+        </header>
+        <div id="empty" class="empty">
+          <span aria-hidden="true">›_</span>
+          <p>运行后，日志和结果会显示在这里。</p>
+        </div>
+        <div id="details" hidden>
+          <div class="toolbar">
+            <button type="button" id="replay" hidden>用原始输入复跑</button>
+            <button type="button" id="cancel" hidden>取消运行</button>
+          </div>
+          <dl id="parameters" class="parameters"></dl>
+          <h3>运行日志</h3>
+          <pre id="log" class="console" tabindex="0"></pre>
+          <h3>输出文件</h3>
+          <p id="outputs-empty" class="hint"></p>
+          <ul id="outputs" class="outputs"></ul>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

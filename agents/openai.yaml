@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local Script Run Viewer"
+  short_description: "Run and inspect local scripts in a browser"
+  default_prompt: "Use $script-run-viewer to give this local script a browser interface with parameters, logs, and downloadable results."
